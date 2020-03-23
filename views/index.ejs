@@ -1,27 +1,74 @@
 <%- include("partials/header") %>
-   <div class="ui main text container">
-   	<div class="ui huge header">Latest Car News</div>
-    <div class="ui top attached segment">
-<div class="ui divided items">
-	<% blogs.forEach(function(blog){ %>
-	 <div class="item">
-	    <div class="image">
-	        <a href="/blogs/<%= blog._id %>" class="ui medium image"><img src="<%= blog.image %>">     </a>      
-	    </div>
-	    <div class="content">
-	      <a href="/blogs/<%=blog._id %>" class="header"><%= blog.title %></a>
-	      <div class="meta">
-	        <span class="cinema"><%= blog.created.toDateString() %></span>
-	      </div>
-	      <div class="description">
-	        <p><%= blog.body.substring(0,100); %></p>
-	      </div>
 
-	    </div>
-	  </div>
-	<% }); %>
+<div class="ui main text container">
+	<div class="ui huge header">Latest Car News</div>
+	<div class="ui top attached segment">
+
+			<div class="ui divided items">
+				<% blogs.forEach(function(blog){ %>
+				 <div class="item">
+				    <div class="image">
+				       <img src="<%= blog.image %>">    
+				    </div>
+				    <div class="content">
+				      <a href="/blogs/<%=blog._id %>" class="header"><%= blog.title %></a>
+				      <div class="meta">
+				        <span class="cinema"><%= blog.created.toDateString() %></span>
+				      </div>
+				      <div class="description">
+				        <p><%= blog.body.substring(0,100); %></p>
+				      </div>
+				
+				    </div>
+				  </div>
+				<% }); %>
+			</div>
+	</div>
+	
+<div class="ui pagination menu" id="pages-menu">
+	<% if (pages && pages > 0) { %>
+
+	
+		<% if (current == 1) { %>
+	    	<a class="disabled icon item"><i class="left arrow icon"></i> </a>
+        <% } else { %>
+        	<a class="icon item" href="/blogs?page=<%= current-1 %>"><i class="left arrow icon"></i> </a>
+        <% } %>
+        
+ 
+        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+	    	<% if (i == current) { %>
+	    		<li class="active item"><%= i %> </li>   
+	    	<% } else { %>
+	    		<a class="item" href="/blogs?page=<%= i %>"> <%= i %> </a>  
+	    	<% } %>
+    	<% } %> 
+		<% if (current == pages) { %>
+	    	<a class="disabled icon item"><i class="right arrow icon"></i> </a>
+        <% } else { %>
+        	<a class="icon item" href="/blogs?page=<%= current+1 %>"><i class="right arrow icon"></i> </a>
+        <% } %>
+	  <% } %>
+</div>	
 </div>
-</div>
-    
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <%- include("partials/footer") %>
+
+
+
+
+
+

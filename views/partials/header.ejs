@@ -4,6 +4,9 @@
     <title> Blogs </title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+    
+    <meta name="google-signin-client_id" content="339752144675-k76t71239831nin3bfilln0rnfkbuu5f.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
     <body>
       
@@ -12,7 +15,12 @@
         <a href="/blogs" class="item">Home</a>
         <a href="/blogs/new" class="item">New Post</a>
       <div class="right menu">
-        <a href="/login" class="item">Login</a>
+        <% if(!currentUser){ %>  
+            <a href="/login" class="item">Login</a>
+        <%  } else{ %>
+            <a href="#" class="item">Signed in as <%= currentUser.username %>  </a>
+            <a href="/logout" class="item">Logout</a>
+         <% } %>
         <a href="/help" class="item">Help</a>
       </div>
     </div>
@@ -20,4 +28,3 @@
     
     
     
- 

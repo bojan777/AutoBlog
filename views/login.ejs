@@ -1,6 +1,9 @@
 <%- include("partials/header") %>
 
+
 <div class="ui main text container segment">
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+<a href="#" onclick="signOut();">Sign out</a>
   <div class="ui huge header">Login</div>
   <form class="ui form" action="/login" method="POST"> 
     <div class="field">
@@ -15,6 +18,33 @@
     <button class="ui violet basic button" type="submit">Submit</button>
   </form>
 </div>
+
+
+
+<div id="content">
+  
+  
+</div>
+
+
+
+<script>
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    document.querySelector('#content').innerText = googleUser.getBasicProfile().getGivenName() +" "+ googleUser.getBasicProfile().getFamilyName();
+}
+
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
 
 <%- include("partials/footer") %>
 
